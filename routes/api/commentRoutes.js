@@ -2,32 +2,32 @@ const router = require('express').Router();
 const { Comment } = require('../../models');
 
 // find all comments
-router.get('/', (req, res) => {
-  Comment.findAll()
+router.get('/', async (req, res) => {
+  try { await Comment.findAll()
     .then(dbCommentData => res.json(dbCommentData))
-    .catch(err => {
+  } catch (err) {
       console.log(err);
       res.status(500).json(err);
-    });
+    }
 });
 
 // create comment
-router.post('/', (req, res) => {  
-  Comment.create({
+router.post('/', async (req, res) => {
+  try { await Comment.create({
     comment_text: req.body.comment_text,
     user_id: req.body.user_id,
     post_id: req.body.post_id
   })
     .then(dbCommentData => res.json(dbCommentData))
-    .catch(err => {
+  } catch (err) {
       console.log(err);
       res.status(400).json(err);
-    });
+    };
 });
 
 // delete comment
-router.delete('/:id', (req, res) => {
-  Comment.destroy({
+router.delete('/:id', async (req, res) => {
+  try { await Comment.destroy({
     where: {
       id: req.params.id
     }
@@ -39,10 +39,10 @@ router.delete('/:id', (req, res) => {
       }
       res.json(dbCommentData);
     })
-    .catch(err => {
+  } catch (err) {
       console.log(err);
       res.status(500).json(err);
-    });
+    };
 });
 
 module.exports = router;

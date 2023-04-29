@@ -3,8 +3,8 @@ const sequelize = require('../../config/connection');
 const { Post, User, Comment, Vote } = require('../../models');
 
 // find all post
-router.get('/', (req, res) => {
-    Post.findAll({
+router.get('/', async (req, res) => {
+    try { await Post.findAll({
         attributes: [
             'id',
             'post_url',
@@ -29,15 +29,15 @@ router.get('/', (req, res) => {
         ]
     })
     .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
+    } catch (err) {
       console.log(err);
       res.status(500).json(err);
-    });
+    }
 });
 
 // find one post
-router.get('/:id', (req, res) => {
-    Post.findOne({
+router.get('/:id', async (req, res) => {
+    try { await Post.findOne({
       where: {
         id: req.params.id
       },
@@ -70,29 +70,29 @@ router.get('/:id', (req, res) => {
         }
         res.json(dbPostData);
       })
-      .catch(err => {
+    } catch (err) {
         console.log(err);
         res.status(500).json(err);
-      });
+      }
   });
 
 // create post
-router.post('/', (req, res) => {  
-    Post.create({
+router.post('/', async (req, res) => {  
+    try { await Post.create({
         title: req.body.title,
         user_id: req.body.user_id,
         post_url: req.body.post_url
   })
     .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
+    } catch (err) {
       console.log(err);
       res.status(400).json(err);
-    });
+    }
 });
 
 // update post
-router.put('/:id', (req, res) => {
-    Post.update(
+router.put('/:id', async (req, res) => {
+    try { await Post.update(
       {
         title: req.body.title
       },
@@ -109,15 +109,15 @@ router.put('/:id', (req, res) => {
         }
         res.json(dbPostData);
       })
-      .catch(err => {
+    } catch (err) {
         console.log(err);
         res.status(500).json(err);
-      });
+      }
   });
 
 // delete post
-router.delete('/:id', (req, res) => {
-    Post.destroy({
+router.delete('/:id', async (req, res) => {
+    try { await Post.destroy({
     where: {
       id: req.params.id
     }
@@ -129,10 +129,10 @@ router.delete('/:id', (req, res) => {
       }
       res.json(dbPostData);
     })
-    .catch(err => {
+    } catch (err) {
       console.log(err);
       res.status(500).json(err);
-    });
+    }
 });
 
 module.exports = router;
