@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { User, Post, Comment, Vote } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // get all users
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try { await User.findAll({
     attributes: { exclude: ['password'] }
   })
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // find one user
-router.get('/:id', async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
   try { await User.findOne({
     attributes: { exclude: ['password'] },
     where: {
@@ -55,7 +56,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create a user
-router.post('/', async (req, res) => { 
+router.post('/', withAuth, async (req, res) => { 
   try { await User.create({
     username: req.body.username,
     email: req.body.email,
@@ -68,7 +69,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', withAuth, async (req, res) => {
   await User.findOne({
     where: {
       email: req.body.email
@@ -90,7 +91,7 @@ router.post('/login', async (req, res) => {
 });
 
 // update user
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
   try { await User.update(req.body, {
     individualHooks: true,
     where: {
@@ -111,7 +112,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // delete user
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
   try { await User.destroy({
     where: {
       id: req.params.id

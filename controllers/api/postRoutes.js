@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Post, User, Comment, Vote } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // find all post
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try { await Post.findAll({
         attributes: [
             'id',
@@ -36,7 +37,7 @@ router.get('/', async (req, res) => {
 });
 
 // find one post
-router.get('/:id', async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
     try { await Post.findOne({
       where: {
         id: req.params.id
@@ -77,7 +78,7 @@ router.get('/:id', async (req, res) => {
   });
 
 // create post
-router.post('/', async (req, res) => {  
+router.post('/', withAuth, async (req, res) => {  
     try { await Post.create({
         title: req.body.title,
         user_id: req.body.user_id,
@@ -91,7 +92,7 @@ router.post('/', async (req, res) => {
 });
 
 // update post
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
     try { await Post.update(
       {
         title: req.body.title
@@ -116,7 +117,7 @@ router.put('/:id', async (req, res) => {
   });
 
 // delete post
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
     try { await Post.destroy({
     where: {
       id: req.params.id
