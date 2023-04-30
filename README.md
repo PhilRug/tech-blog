@@ -36,7 +36,8 @@ web browser
 
 ## Credits
 - boiler plate code copied from 14-MVC mini project
-- login/logout, main.handlebars, css provided from lesson 16-Stu_Sessions in 14-MVC
+- login/logout, main.handlebars, helper.js, css provided from lesson 16-Stu_Sessions in 14-MVC
+
     
 ## Questions
 If you have any questions you can contact me at:
