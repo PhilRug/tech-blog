@@ -4,34 +4,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PJ's Tech Blog</title>
-  <link rel="stylesheet" type="text/css" href="/css/jass.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>PJ's Tech Blog</title>  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-  <header>
-    <h1>PJ's Tech Blog</h1>
-  </header>
-  <nav>
-    <a href="/">Home</a>
-    <!-- If the user is logged in, show a logout button -->
-    {{#if loggedIn}}
-    <button id="logout" class="btn-no-style">Logout</button>
-    {{else}}
-    <!-- Otherwise, show a link to login -->
-    <a href="/login">Login</a>
-    {{/if}}
+<body class="flex-column min-100-vh">
+  <nav class="navbar">
+    <ul>
+      <li class="li-inline nav-item"><a href="/">Home</a></li>
+      <li class="li-inline nav-item"><a href="/dashboard">Dashboard</a></li>
+      <!-- conditionally render login link -->
+      {{#unless loggedIn}}
+      <li class="li-inline nav-item"><a href="/login">Login</a></li>
+      {{/unless}}
+      <li class="li-inline nav-item"><a href="#" id="logout-link">Logout</a></li>
+    </ul>
   </nav>
-  <main>
-    <div class="comment">
-      {{{body}}}
-    </div>
-  </main>
-  <!-- If the user is logged in, load the JS script for when they logout -->
-  {{#if loggedIn}}
-  <script src="/js/logout.js"></script>
-  {{/if}}
-</body>
 
+  <header class="hero">
+    <h1 class="app-title"><a href="/">PJ's Tech Blog</a></h1>
+  </header>
+
+  <main class="col-auto">
+    {{{body}}}
+  </main>
+{{#if loggedIn}}
+<script src="/js/logout.js"></script>
+{{/if}}  
+</body>
 </html>
