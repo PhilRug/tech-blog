@@ -4,15 +4,18 @@ const userdata =
 [
   {
     "username": "RZA",
-    "password": "greatpass123"
+    "password": "greatpass123",
+    "email": "outdatedreferance1@aol.com"
   },
   {
     "username": "GZA",
-    "password": "greatpass456"
+    "password": "greatpass456",
+    "email": "outdatedreferance2@hotmail.com"
   },
   {
     "username": "ODB",
-    "password": "shimmyshimmyya1"
+    "password": "shimmyshimmyya1",
+    "email": "outdatedreferance3@msn.com"
   }
 ];
 

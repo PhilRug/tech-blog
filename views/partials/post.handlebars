@@ -1,5 +1,6 @@
 <div class="card">
   <div class="card-header  flex-row justify-space-between">
+      {{#each}}
     <h2>
       <a href="/post/{{id}}">
         <div class="col-8">{{post.title}}</div>
@@ -11,4 +12,5 @@
   <p class="card-body">
    {{postContent}}
   </p>
+  {{/each}}
 </div>
